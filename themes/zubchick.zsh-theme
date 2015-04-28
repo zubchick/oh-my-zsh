@@ -1,7 +1,12 @@
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
+get_color() {
+    RETVAL=$?
+    local color
+    if [[ $RETVAL -ne 0 ]]; then color="red"; else color="green"; fi
+    echo $color
+}
 
-PROMPT='%{$fg_bold[$NCOLOR]%}%T %{$fg[blue]%}%3~ %{$reset_color%}'
-RPROMPT='%{$fg[$NCOLOR]%}%p $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg_bold[$(get_color)]%}%T %{$fg[blue]%}%3~ %{$reset_color%}'
+RPROMPT='%{$fg[green]%}%p $(git_prompt_info)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg_no_bold[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
